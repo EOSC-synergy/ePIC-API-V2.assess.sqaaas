@@ -1,0 +1,56 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/pidconsortium/ePIC-API-V2:
+      branch: master
+      repo: https://github.com/pidconsortium/ePIC-API-V2
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/pidconsortium/ePIC-API-V2 git:
+        commands:
+        - /usr/bin/env sh .sqa/script.skinny-mustard-yak.sh
+        container: qc.acc_nerdy-ruby-robin
+  QC.Doc:
+    repos:
+      github.com/pidconsortium/ePIC-API-V2 find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.hilly-wisteria-hound.sh
+        container: qc.doc_squirrely-celadon-vole
+      github.com/pidconsortium/ePIC-API-V2 git:
+        commands:
+        - /usr/bin/env sh .sqa/script.ready-azure-tamarin.sh
+        container: qc.doc_woolly-emerald-frigatebird
+      github.com/pidconsortium/ePIC-API-V2 markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.muzzy-ochre-seal.sh
+        container: qc.doc_ugly-russet-rabbit
+  QC.Lic:
+    repos:
+      github.com/pidconsortium/ePIC-API-V2 licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.craggy-platinum-coyote.sh
+        container: qc.lic_woolly-gamboge-javanese
+  QC.Sty:
+    repos:
+      github.com/pidconsortium/ePIC-API-V2 checkstyle:
+        commands:
+        - /usr/bin/env sh .sqa/script.cheeky-pumpkin-toucan.sh
+        container: qc.sty_lovely-amaranth-dog
+      github.com/pidconsortium/ePIC-API-V2 rubocop:
+        commands:
+        - /usr/bin/env sh .sqa/script.shaggy-chocolate-koala.sh
+        container: qc.sty_woozy-fuchsia-zebu
+  QC.Ver:
+    repos:
+      github.com/pidconsortium/ePIC-API-V2 get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.boozy-olivine-dog.sh
+        container: qc.ver_geeky-copper-buffalo
+timeout: 5400
